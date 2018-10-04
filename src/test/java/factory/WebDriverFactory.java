@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class WebDriverFactory {
 	
-	static final String exePath = "D:\\Installed Softwares\\chromedriver.exe";
+	static final String exePath = "lib\\chromedriver.exe";
 	
     public static WebDriver createWebDriver() {
     	String geckodriverPath = System.getProperty("GeckoDriverPath", "lib\\geckodriver.exe");

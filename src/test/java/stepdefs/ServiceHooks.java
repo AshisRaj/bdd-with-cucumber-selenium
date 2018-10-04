@@ -14,7 +14,6 @@ import factory.WebDriverFactory;
 
 public class ServiceHooks {
     
-	static final String exePath = "D:\\Installed Softwares\\chromedriver.exe";
 	public static WebDriver driver;
 	public static String scenarioName;
 	
