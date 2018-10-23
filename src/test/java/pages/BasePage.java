@@ -1,5 +1,7 @@
 package pages;
 
+import static org.junit.Assert.assertEquals;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +13,8 @@ public class BasePage {
 	public static final String REG_LINK = "http://localhost:8080/register";
 	public static final String PROFILE_LINK = "http://localhost:8080/profile";
 	public static final String BLOG_POST_LINK = "http://localhost:8080/post";
+	public static final String FORGOT_PASSWORD_LINK = "http://localhost:8080/forgot";
+	public static final String RESET_PASSWORD_LINK = "http://localhost:8080/reset/f127c9883b132c61d82dca004654d4057a8fe285";
 	
 	WebDriver driver;
 		
@@ -67,6 +71,14 @@ public class BasePage {
 		navigateTo_Page(PROFILE_LINK);
 	}
 	
+	public void navigate_To_Forgot_Password_Page() {
+		navigateTo_Page(FORGOT_PASSWORD_LINK);
+	}
+	
+	public void navigate_To_Reset_Password_Page() {
+		navigateTo_Page(RESET_PASSWORD_LINK);
+	}
+	
 	public String getLocationHref() {
 		return driver.getCurrentUrl();
 	}
@@ -105,5 +117,12 @@ public class BasePage {
 	
 	public WebElement get_Profile_Link() {
 		return profile_Link;
+	}
+	
+	public void validate_Panel_Header_Footer(String header, String footer) {
+		String panelHeader = get_Panel_Heading().getText();
+		String panelFooter = get_Panel_Footer().getText();
+		assertEquals(header, panelHeader);
+		assertEquals(footer, panelFooter);
 	}
 }

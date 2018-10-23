@@ -9,11 +9,11 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pages.CommentPage;
+import pages.ForgotPassword;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.PostPage;
@@ -28,6 +28,7 @@ public class StepDefinitions {
 	ProfilePage profilePage;
 	PostPage postPage;
 	CommentPage commentPage;
+	ForgotPassword forgotPassword;
 	
 	public StepDefinitions() {
 		loginPage = new LoginPage(ServiceHooks.driver);
@@ -36,6 +37,7 @@ public class StepDefinitions {
 		profilePage = new ProfilePage(ServiceHooks.driver);
 		postPage = new PostPage(ServiceHooks.driver);
 		commentPage = new CommentPage(ServiceHooks.driver);
+		forgotPassword = new ForgotPassword(ServiceHooks.driver);
 	}
 	
     //////////////////////////////
@@ -65,10 +67,7 @@ public class StepDefinitions {
 		String locationHref = loginPage.getLocationHref();
         assertEquals(LoginPage.LOGIN_LINK, locationHref);
         
-		String signInHeading = loginPage.get_Heading_SignIn();
-    	String signUpLink = loginPage.get_FooterLink_SignUp();
-    	assertEquals(heading, signInHeading);
-		assertEquals(link, signUpLink);
+        loginPage.validate_Panel_Header_Footer(heading, link);
 	}
 	
     /////////////////////////////////////
@@ -110,8 +109,16 @@ public class StepDefinitions {
 	    	break; 	
 	    case "My Profile":
 	    	profilePage.navigate_To_Profile_Page();
+	    	break;
 	    case "Add New Post":
 	    	homePage.navigate_To_Add_Blog_Post_Page();
+	    	break;
+	    case "Forgot Password":
+	    	forgotPassword.navigate_To_Forgot_Password_Page();
+	    	break;
+	    case "Reset Password":
+	    	forgotPassword.navigate_To_Reset_Password_Page();
+	    default:
 	    	break;
 	    }
 	}
@@ -134,6 +141,8 @@ public class StepDefinitions {
 		case "email":
 			if("Successful Add Comment to a Blog/Post".equals(scenarioName))
 				commentPage.enter_Email(value);
+			else if("Successful submit of forgot password form with valid email".equals(scenarioName) || "Failed submit of forgot password form with invalid email".equals(scenarioName))
+				forgotPassword.enter_Email(value);
 			else	
 				registrationPage.enter_Email(value);
 			break;
@@ -188,6 +197,10 @@ public class StepDefinitions {
 			break;	
 		case "Add Comment":
 			commentPage.click_On_Add_Comment_Button();
+			break;
+		case "Submit":
+			forgotPassword.click_On_Submit_Button();
+			break;
 		default:
 			break;
 		}
@@ -227,6 +240,10 @@ public class StepDefinitions {
 				break;
 			case "Blog Details":
 				validate_Post_Details_Page();
+				break;
+			case "Forgot Password":
+				validate_Forgot_Password_Page("Forgot Password", "Or Sign In");
+				break;
 			default:
 				break;
     	}
@@ -256,6 +273,13 @@ public class StepDefinitions {
     	String locationHref = postPage.getLocationHref();
         assertTrue(locationHref.contains(PostPage.POST_LINK));
     }
+    
+    private void validate_Forgot_Password_Page(String heading, String link) {
+		String locationHref = forgotPassword.getLocationHref();
+        assertEquals(LoginPage.FORGOT_PASSWORD_LINK, locationHref);
+        
+        forgotPassword.validate_Panel_Header_Footer(heading, link);
+	}
     
     @Then("^I should see \"([^\"]*)\" message as \"([^\"]*)\"$")
     public void i_should_see_message_as(String msgType, String msg) throws Throwable {

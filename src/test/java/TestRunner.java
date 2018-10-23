@@ -11,11 +11,13 @@ import org.testng.annotations.Test;
     glue = {"stepdefs"},
     tags = {"~@Ignore"},
     plugin = {
-            "pretty",
-            "html:target/cucumber-reports/cucumber-pretty",
+            "usage",
+            "html:target/cucumber-reports/blog-post-pretty",
             "json:target/cucumber-reports/json-reports/blog-post.json",
+            "junit:target/cucumber-reports/blog-post.xml",
             "rerun:target/cucumber-reports/rerun-reports/rerun.txt"
-    })
+    },
+    monochrome = true)
 
 // mvn cluecumber-report:reporting
 

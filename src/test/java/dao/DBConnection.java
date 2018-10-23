@@ -1,18 +1,15 @@
 package dao;
 
+import static com.mongodb.client.model.Filters.eq;
+
 import java.util.Date;
 
 import org.bson.Document;
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-
-import pages.LoginPage;
-
-import static com.mongodb.client.model.Filters.eq;
 
 public class DBConnection {
 	
@@ -80,10 +77,7 @@ public class DBConnection {
             System.out.println("*********************** User already present *********************** ");
         } 
         else {
-            Date date = new Date();
-
-            BasicDBObject timestamp = new BasicDBObject("date", date);
-            
+            Date date = new Date();            
             Document document = new Document("username", "asdf.asdf")
     				            .append("email", "asdf.asdf@example.com")
     				            .append("profile", new Document("firstname", "")
@@ -102,8 +96,8 @@ public class DBConnection {
 	}
 
 	public static void main(String[] args) {
-//		cleanUpCollection("users");
-//		createUser("users");
+		// cleanUpCollection("users");
+		// createUser("users");
 	}
 	
 	static Block<Document> printBlock = new Block<Document>() {
@@ -112,5 +106,4 @@ public class DBConnection {
 	           System.out.println(document.toJson());
 	       }
 	};
-
 }

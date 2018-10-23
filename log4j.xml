@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="true" xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+    <appender name="YOUR_KAFKA_APPENDER_NAME" class="kafka.producer.KafkaLog4jAppender">
+        <param name="BrokerList" value="<host(s) to reach Kafka, like 'x.x.x.x:port, y.y.y.y:port'>"/>
+        <param name="Threshold" value="DEBUG" />
+        <param name="Category" value="your_selenium_testing" />
+        <param name="Topic" value="your_selenium_testing" />
+        <param name="Serializer" value="kafka.test.AppenderStringSerializer" />
+    </appender>
+
+    <category name="your_selenium_testing">
+        <priority value="DEBUG" />
+        <appender-ref ref="YOUR_KAFKA_APPENDER_NAME" />
+    </category>
+
+    <root>
+        <level value="DEBUG" />
+    </root>
+</log4j:configuration>
