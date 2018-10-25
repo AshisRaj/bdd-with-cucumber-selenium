@@ -123,17 +123,19 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.14.1</version>
+                <version>2.19.1</version>
                 <configuration>
-                    <suiteXmlFiles>
+                	<testFailureIgnore>true</testFailureIgnore>
+                	<checkBuildResult>true</checkBuildResult>
+                    <!-- suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
+                    </suiteXmlFiles-->
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>3.8.0</version>
+                <version>3.16.0</version>
                 <executions>
                     <execution>
                         <id>execution</id>
@@ -142,11 +144,12 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>Blog-Post</projectName>
-                            <outputDirectory>${project.build.directory}/target/cucumber-reports/maven-cucumber-reports</outputDirectory>
-                            <cucumberOutput>${project.build.directory}/target/cucumber-reports/json-reports</cucumberOutput>
+                            <projectName>bdd-with-cucumber-selenium</projectName>
+                            <outputDirectory>${project.build.directory}\cucumber-reports\maven-cucumber-reports</outputDirectory>
+                            <cucumberOutput>${project.build.directory}\cucumber-reports\json-reports</cucumberOutput>
                             <buildNumber>1</buildNumber>
                             <parallelTesting>false</parallelTesting>
+                            <checkBuildResult>true</checkBuildResult>
                         </configuration>
                     </execution>
                 </executions>
@@ -154,7 +157,7 @@
             <plugin>
 			    <groupId>com.trivago.rta</groupId>
 			    <artifactId>cluecumber-report-plugin</artifactId>
-			    <version>1.4.0</version>
+			    <version>1.4.2</version>
 			    <executions>
 			        <execution>
 			            <id>report</id>
@@ -165,8 +168,9 @@
 			        </execution>
 			    </executions>
 			    <configuration>
-			        <sourceJsonReportDirectory>${project.build.directory}/cucumber-reports/json-reports</sourceJsonReportDirectory>
-			        <generatedHtmlReportDirectory>${project.build.directory}/cucumber-reports/cluecumber-report</generatedHtmlReportDirectory>
+			    	<projectName>bdd-with-cucumber-selenium</projectName>
+			        <sourceJsonReportDirectory>${project.build.directory}\cucumber-reports\json-reports</sourceJsonReportDirectory>
+			        <generatedHtmlReportDirectory>${project.build.directory}\cucumber-reports\cluecumber-report</generatedHtmlReportDirectory>
 			    </configuration>    
 			</plugin>
         </plugins>
